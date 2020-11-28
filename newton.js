@@ -18,9 +18,10 @@ class Newton {
         circle(this.pos.x, this.pos.y, this.diam);
     }
 
-    update() {
+    update(db) {
         this.vel.add(this.acc);
         this.pos.add(this.vel);
+        if (db == null) { return; }
         this.debugOutput();
     }
 
@@ -42,6 +43,7 @@ class Newton {
                 this.pos.y = this.diam / 2;
                 this.vel.y *= -Newton.wallDampeningY;
             }
+            this.vel.x *= 0.995;
         } else {
             func();
         }
@@ -53,5 +55,7 @@ class Newton {
         text(`Position: (${this.pos.x.toFixed(6)}, ${this.pos.y.toFixed(6)})`, 20, 40);
         text(`Velocity: (${this.vel.x.toFixed(6)}, ${this.vel.y.toFixed(6)})`, 20, 80);
         text(`Acceleration: (${this.acc.x.toFixed(6)}, ${this.acc.y.toFixed(6)})`, 20, 120);
+        text(`Frame Rate: ${frameRate()}`, 20, 160);
+        text(`Pixel Density: ${72}`, 20, 200);
     }
 }
